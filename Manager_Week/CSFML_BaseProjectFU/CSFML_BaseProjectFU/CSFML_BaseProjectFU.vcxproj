@@ -166,6 +166,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
     <ClCompile Include="options.c" />
+    <ClCompile Include="particulesManager.c" />
     <ClCompile Include="pause.c" />
     <ClCompile Include="ressourcesManager.c" />
     <ClCompile Include="soundManager.c" />
@@ -183,6 +184,7 @@
     <ClInclude Include="gamepadx.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="options.h" />
+    <ClInclude Include="particulesManager.h" />
     <ClInclude Include="pause.h" />
     <ClInclude Include="ressourcesManager.h" />
     <ClInclude Include="soundManager.h" />

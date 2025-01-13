@@ -78,6 +78,9 @@
     <ClCompile Include="game.c">
       <Filter>Fichiers sources\GAME</Filter>
     </ClCompile>
+    <ClCompile Include="particulesManager.c">
+      <Filter>Fichiers sources\ENGINE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dialogBox.h">
@@ -123,6 +126,9 @@
       <Filter>Fichiers d%27en-tête\GAME</Filter>
     </ClInclude>
     <ClInclude Include="..\..\CSFML_DLL_Project\sfBaseDllProject\dirent.h">
+      <Filter>Fichiers d%27en-tête\ENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="particulesManager.h">
       <Filter>Fichiers d%27en-tête\ENGINE</Filter>
     </ClInclude>
   </ItemGroup>
