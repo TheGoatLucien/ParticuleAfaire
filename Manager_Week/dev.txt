@@ -1,0 +1,3 @@
+corriger
+analyser comment fonctionne et faire le son
+faire la docu qui explique comment se fonctionne un manager

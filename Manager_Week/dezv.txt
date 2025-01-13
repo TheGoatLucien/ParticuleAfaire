@@ -1,0 +1,899 @@
+game.c:
+
+#include "game.h"
+#include "textureManager.h"
+#include "viewManager.h"
+#include "stateManager.h"
+#include "soundManager.h"
+#include "Gamepad.h"
+#include "pause.h"
+
+#include <Windows.h>
+
+//sfSprite* sprite;
+sfSprite* spBG1;
+sfSprite* spBG2;
+
+sfBool gamepadChangePos;
+sfVector2f BG1Pos;
+sfVector2f BG2Pos;
+
+float timer;
+int nbreJoueur;
+int waveCount;
+
+float waveTimer;
+float soloTimer;
+float defaultwaveTimer;
+float defaultsoloTimer;
+float bossTimer;
+
+sfBool phaseWave;
+sfBool phaseBoss;
+sfBool phaseBossCompleted;
+sfBool gameover;
+
+
+
+void initGame(Window* _window)
+{
+    Texture_Onload(GAME);
+
+    spBG1 = sfSprite_create();
+    spBG2 = sfSprite_create();
+
+    sfSprite_setTexture(spBG1, GetTexture("BG1"), sfTrue);
+    sfSprite_setTexture(spBG2, GetTexture("BG2"), sfTrue);
+
+    sfSprite_setPosition(spBG2, vector2f(0.0f, -1080.0f));
+
+    sfVector3f ambientLight = { 0.1f, 0.1f, 0.3f };
+
+    BG1Pos = vector2f(0.0f, 0.0f);
+    BG2Pos = vector2f(0.0f, -1080.0f);
+
+    SetViewPosition(mainView, vector2f(960.f, 540.f));
+
+    GamepadDetection();
+
+    Sleep(2000); // A enlever juste pour le test Thread
+
+    w.state = sfTrue;
+
+}
+
+void updateGame(Window* _window)
+{
+    
+    timer += getDeltaTime();
+
+    for (int i = 0; i < 8; i++)
+    {
+        if (Gamepad_isButtonPressed(i, OPTION) && timer > 0.2f)
+        {
+            togglePause();
+            timer = 0.0f;
+        }
+    }
+
+    if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue && timer > 0.2f)
+    {
+        togglePause();
+        timer = 0.0f;
+    }
+
+    gamepadChangePos = sfFalse;
+
+    BG1Pos.y = BG1Pos.y + 100.f * getDeltaTime();
+    BG2Pos.y = BG2Pos.y + 100.f * getDeltaTime();
+    if (BG1Pos.y >= 1080.0f)
+        BG1Pos.y = BG2Pos.y - 1080.0f;
+    if (BG2Pos.y >= 1080.0f)
+        BG2Pos.y = BG1Pos.y - 1080.0f;
+
+    sfSprite_setPosition(spBG1, BG1Pos);
+    sfSprite_setPosition(spBG2, BG2Pos);
+}
+
+void displayGame(Window* _window)
+{
+    sfRenderWindow_drawSprite(_window->renderWindow, spBG1, NULL);
+    sfRenderWindow_drawSprite(_window->renderWindow, spBG2, NULL);
+}
+
+void deinitGame()
+{
+    deinitPause();
+    sfSprite_destroy(spBG1);
+    sfSprite_destroy(spBG2);
+    RemoveAllTextureButALL();
+
+   }
+
+pause.c:
+
+#include "pause.h"
+#include "stateManager.h"
+#include "viewManager.h"
+#include "gamepad.h"
+#include "dialogBox.h"
+#include "soundManager.h"
+
+sfRectangleShape* rshape;
+
+sfText* txtPause;
+sfText* txtReturnGame;
+sfText* txtReturnMenu;
+sfText* txtSoundVolume;
+
+sfTexture* texCursor;
+sfSprite* spCursor;
+
+int pauseSelect;
+
+
+
+void initPause(Window* _window)
+{
+	rshape = sfRectangleShape_create();
+	sfRectangleShape_setSize(rshape, (sfVector2f) { (float)mainView->defaultVideoMode.x, (float)mainView->defaultVideoMode.y});
+	sfRectangleShape_setFillColor(rshape, (sfColor) {0,0,0,150});
+	txtPause = sfText_create();
+	txtReturnGame = sfText_create();
+	txtReturnMenu = sfText_create();
+	txtSoundVolume = sfText_create();
+	sfText_setFont(txtPause, getDefaultFont());
+	sfText_setColor(txtPause, sfRed);
+	sfText_setString(txtPause, "PAUSE");
+	sfText_setFont(txtReturnGame, getDefaultFont());
+	sfText_setCharacterSize(txtReturnGame, 20);
+	sfText_setColor(txtReturnGame, sfWhite);
+	sfText_setString(txtReturnGame, "Return to Game");
+	sfText_setFont(txtReturnMenu, getDefaultFont());
+	sfText_setCharacterSize(txtReturnMenu, 20);
+	sfText_setColor(txtReturnMenu, sfWhite);
+	sfText_setString(txtReturnMenu, "Exit to Menu");
+	sfText_setFont(txtSoundVolume, getDefaultFont());
+	sfText_setCharacterSize(txtSoundVolume, 20);
+	sfText_setColor(txtSoundVolume, sfWhite);
+	sfText_setString(txtSoundVolume, "Options");
+
+	texCursor = sfTexture_createFromFile("../Ressources/Textures/cursor.png", NULL);
+	spCursor = sfSprite_create();
+	sfSprite_setTexture(spCursor, texCursor, sfTrue);
+	pauseSelect = 0;
+	
+
+}
+
+void updatePause(Window* _window)
+{
+	static float timer = 0.0f;
+	timer += getDeltaTime();
+
+	for (int i = 0; i < 8; i++)
+	{
+		if (Gamepad_isButtonPressed(i, OPTION) && timer > 0.2f)
+		{
+			
+			togglePause();
+			timer = 0.0f;
+		}
+
+		if (Gamepad_isJoystickMoved(i, CROSSY) > 0 && timer > 0.2f)
+		{
+			
+			pauseSelect--;
+			if (pauseSelect < 0)
+				pauseSelect = 2;
+			timer = 0.0f;
+		}
+		if (Gamepad_isJoystickMoved(i, CROSSY) < 0 && timer > 0.2f)
+		{
+			
+			pauseSelect++;
+			if (pauseSelect > 2)
+				pauseSelect = 0;
+			timer = 0.0f;
+		}
+		if (Gamepad_isButtonPressed(i, CROIX) && timer > 0.2f)
+		{
+		
+			if (pauseSelect == 0)
+			{
+				togglePause();
+			}
+
+			else if (pauseSelect == 1)
+			{
+				toggleOptions();
+			}
+			else if (pauseSelect == 2)
+			{
+				dialogBoxCreate(ALERT, "Voulez vous retourner au menu?\n", 1);
+			}
+
+			timer = 0.0f;
+		}
+	}
+	if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue && timer > 0.2f)
+	{
+		togglePause();
+		timer = 0.0f;
+	}
+	if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue && timer > 0.2f)
+	{
+	
+		pauseSelect++;
+		if (pauseSelect > 2)
+			pauseSelect = 0;
+		timer = 0.0f;
+	}
+	if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue && timer > 0.2f)
+	{
+	
+		pauseSelect--;
+		if (pauseSelect < 0)
+			pauseSelect = 2;
+		timer = 0.0f;
+	}
+	if (sfKeyboard_isKeyPressed(sfKeyEnter) == sfTrue && timer > 0.2f)
+	{
+		
+		
+		if (pauseSelect == 0)
+		{
+			togglePause();
+		}
+		else if (pauseSelect == 1)
+		{
+			toggleOptions();
+		}
+		else if (pauseSelect == 2)
+		{
+			dialogBoxCreate(ALERT, "Voulez vous retourner au menu?\n", 1);
+		}
+
+		timer = 0.0f;
+	}
+
+	sfRectangleShape_setPosition(rshape, (sfVector2f) { mainView->PosView.x - mainView->defaultVideoMode.x/2, mainView->PosView.y - mainView->defaultVideoMode.y / 2});
+	
+	sfText_setPosition(txtPause, vector2f(GetViewPosition(mainView).x, GetViewPosition(mainView).y - 250.0f));
+	sfText_setPosition(txtReturnGame, vector2f(GetViewPosition(mainView).x - 100.0f, GetViewPosition(mainView).y - 200.0f));
+	sfText_setPosition(txtReturnMenu, vector2f(GetViewPosition(mainView).x - 100.0f, GetViewPosition(mainView).y - 100.0f));
+	sfText_setPosition(txtSoundVolume, vector2f(GetViewPosition(mainView).x - 100.0f, GetViewPosition(mainView).y - 150.0f));
+
+	if (pauseSelect == 0)
+	{
+		sfText_setPosition(txtReturnGame, vector2f(GetViewPosition(mainView).x - 80.0f, GetViewPosition(mainView).y - 200.0f));
+		sfSprite_setPosition(spCursor, vector2f(GetViewPosition(mainView).x - 100.0f, GetViewPosition(mainView).y - 195.0f));
+	}
+	else if(pauseSelect == 1)
+	{
+		sfText_setPosition(txtSoundVolume, vector2f(GetViewPosition(mainView).x - 80.0f, GetViewPosition(mainView).y - 150.0f));
+		sfSprite_setPosition(spCursor, vector2f(GetViewPosition(mainView).x - 100.0f, GetViewPosition(mainView).y - 145.0f));
+	}
+	else if (pauseSelect == 2)
+	{
+		sfText_setPosition(txtReturnMenu, vector2f(GetViewPosition(mainView).x - 80.0f, GetViewPosition(mainView).y - 100.0f));
+		sfSprite_setPosition(spCursor, vector2f(GetViewPosition(mainView).x - 100.0f, GetViewPosition(mainView).y - 95.0f));
+	}
+}
+
+void displayPause(Window* _window)
+{
+	sfRenderWindow_setView(_window->renderWindow, mainView->view);
+	sfRenderWindow_drawRectangleShape(_window->renderWindow, rshape, NULL);
+	
+	sfRenderWindow_drawSprite(_window->renderWindow, spCursor, NULL);
+	
+	sfRenderWindow_drawText(_window->renderWindow, txtPause, NULL);
+	sfRenderWindow_drawText(_window->renderWindow, txtReturnGame, NULL);
+	sfRenderWindow_drawText(_window->renderWindow, txtReturnMenu, NULL);
+	sfRenderWindow_drawText(_window->renderWindow, txtSoundVolume, NULL);
+}
+
+void deinitPause()
+{
+	sfRectangleShape_destroy(rshape);
+	sfText_destroy(txtPause);
+	sfText_destroy(txtReturnGame);
+	sfText_destroy(txtReturnMenu);
+	sfText_destroy(txtSoundVolume);
+	sfSprite_destroy(spCursor);
+	sfTexture_destroy(texCursor);
+}
+
+menu.c:
+
+#include "menu.h"
+#include "textureManager.h"
+#include "gamepad.h"
+#include "viewManager.h"
+#include "soundManager.h"
+
+sfFont* venture3D;
+
+sfText* Play;
+sfText* Editor;
+sfText* Options;
+sfText* Quit;
+
+sfTexture* texture;
+sfSprite* sprite;
+
+int menuSelection;
+
+
+
+void initMenu(Window* _window)
+{
+    Texture_Onload(MENU);
+
+    venture3D = sfFont_createFromFile("../Ressources/Fonts/3Dventure.ttf");
+
+    SetViewPosition(mainView, vector2f(mainView->defaultVideoMode.x / 2.0f, mainView->defaultVideoMode.y / 2.0f));
+
+    Play = sfText_create();
+    Editor = sfText_create();
+    Options = sfText_create();
+    Quit = sfText_create();
+    sfText_setFont(Play, venture3D);
+    sfText_setFont(Editor, venture3D);
+    sfText_setFont(Options, venture3D);
+    sfText_setFont(Quit, venture3D);
+    sfText_setString(Play, "Play");
+    sfText_setString(Editor, "Editor");
+    sfText_setString(Options, "Options");
+    sfText_setString(Quit, "Quit");
+    sfText_setCharacterSize(Play, 72);
+    sfText_setCharacterSize(Editor, 72);
+    sfText_setCharacterSize(Options, 72);
+    sfText_setCharacterSize(Quit, 72);
+    sfText_setPosition(Play, vector2f(mainView->PosView.x + 100.0f ,mainView->PosView.y - 100.0f));
+    sfText_setPosition(Editor, vector2f(mainView->PosView.x + 200.0f, mainView->PosView.y - 0.0f));
+    sfText_setPosition(Options, vector2f(mainView->PosView.x + 300.0f, mainView->PosView.y + 100.0f));
+    sfText_setPosition(Quit, vector2f(mainView->PosView.x + 200.0f, mainView->PosView.y + 200.0f));
+
+    GamepadDetection();
+    menuSelection = 0;
+
+
+}
+
+void updateMenu(Window* _window)
+{
+    static float timer = 0.0f;
+    timer += getDeltaTime();
+
+    switch (menuSelection)
+    {
+    case 0:
+        sfText_setColor(Play, sfRed);
+        sfText_setColor(Editor, sfWhite);
+        sfText_setColor(Options, sfWhite);
+        sfText_setColor(Quit, sfWhite);
+        break;
+    case 1:
+        sfText_setColor(Play, sfWhite);
+        sfText_setColor(Editor, sfRed);
+        sfText_setColor(Options, sfWhite);
+        sfText_setColor(Quit, sfWhite);
+        break;
+    case 2:
+        sfText_setColor(Play, sfWhite);
+        sfText_setColor(Editor, sfWhite);
+        sfText_setColor(Options, sfRed);
+        sfText_setColor(Quit, sfWhite);
+        break;
+    case 3:
+        sfText_setColor(Play, sfWhite);
+        sfText_setColor(Editor, sfWhite);
+        sfText_setColor(Options, sfWhite);
+        sfText_setColor(Quit, sfRed);
+        break;
+    default:
+        break;
+    }
+
+    for (int i = 0; i < 8; i++)
+    {
+        if (Gamepad_isButtonPressed(i, CROIX) && timer > 0.2f)
+        {
+
+      
+            switch (menuSelection)
+            {
+            case 0:
+                changeState(_window, GAME);
+                break;
+            case 1:
+                changeState(_window, EDITOR);
+                break;
+            case 2:
+                toggleOptions();
+                break;
+            case 3:
+                _window->isDone = sfTrue;
+                break;
+            default:
+                break;
+            }
+            timer = 0.0f;
+        }
+        if (Gamepad_isJoystickMoved(i, CROSSY) > 0 && timer > 0.2f)
+        {
+            menuSelection--;
+
+            if (menuSelection < 0)
+                menuSelection = 3;
+            timer = 0.0f;
+        }
+        if (Gamepad_isJoystickMoved(i, CROSSY) < 0 && timer > 0.2f)
+        {
+            menuSelection++;
+         
+            if (menuSelection > 3)
+                menuSelection = 0;
+            timer = 0.0f;
+        }
+        if (Gamepad_isJoystickMoved(i, STICKLY) < 0 && timer > 0.5f)
+        {
+            menuSelection--;
+          
+            if (menuSelection < 0)
+                menuSelection = 3;
+            timer = 0.0f;
+        }
+        if (Gamepad_isJoystickMoved(i, STICKLY) > 0 && timer > 0.5f)
+        {
+            menuSelection++;
+   
+            if (menuSelection > 3)
+                menuSelection = 0;
+            timer = 0.0f;
+        }
+    }
+
+    if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue && timer > 0.2f)
+    {
+        menuSelection--;
+
+        if (menuSelection < 0)
+            menuSelection = 3;
+        timer = 0.0f;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue && timer > 0.2f)
+    {
+        menuSelection++;
+
+        if (menuSelection > 3)
+            menuSelection = 0;
+        timer = 0.0f;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyEnter) == sfTrue && timer > 0.2f)
+    {
+
+        switch (menuSelection)
+        {
+        case 0:
+            changeState(_window, GAME);
+            break;
+        case 1:
+            //changeState(_window, EDITOR);
+            break;
+        case 2:
+            toggleOptions();
+            break;
+        case 3:
+            _window->isDone = sfTrue;
+            break;
+        default:
+            break;
+        }
+        timer = 0.0f;    
+    }
+}
+
+void displayMenu(Window* _window)
+{
+    sfRenderWindow_drawText(_window->renderWindow, Play, NULL);
+    sfRenderWindow_drawText(_window->renderWindow, Editor, NULL);
+    sfRenderWindow_drawText(_window->renderWindow, Options, NULL);
+    sfRenderWindow_drawText(_window->renderWindow, Quit, NULL);
+}
+
+void deinitMenu()
+{
+    sfFont_destroy(venture3D);
+    RemoveAllTextureButALL();
+    sfText_destroy(Play);
+    sfText_destroy(Editor);
+    sfText_destroy(Options);
+    sfText_destroy(Quit);
+
+    
+   
+}
+
+option.c:
+#include "options.h"
+#include "soundManager.h"
+#include "stateManager.h"
+#include "viewManager.h"
+#include "gamepad.h"
+
+sfRectangleShape* backgroundOpt;
+sfRectangleShape* sfxVolumeBar;
+sfRectangleShape* MusicVolumeBar;
+sfRectangleShape* fullscreenTick;
+sfText* Option;
+sfText* Fullscreen;
+sfText* SfxSoundTxt;
+sfText* MusicSoundTxt;
+sfText* returnTxt;
+int optionSelect;
+
+void initOptions(Window* _window)
+{
+    backgroundOpt = sfRectangleShape_create();
+    sfRectangleShape_setSize(backgroundOpt, vector2f(500.0f, 300.0f));
+    sfRectangleShape_setFillColor(backgroundOpt, sfBlack);
+    sfRectangleShape_setOutlineColor(backgroundOpt, sfWhite);
+    sfRectangleShape_setOutlineThickness(backgroundOpt, 2.0f);
+    sfRectangleShape_setOrigin(backgroundOpt, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).width / 2.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).height / 2.0f));
+    sfRectangleShape_setPosition(backgroundOpt, mainView->PosView);
+
+    Option = sfText_create();
+    sfText_setFont(Option, getDefaultFont());
+    sfText_setColor(Option, sfRed);
+    sfText_setString(Option, "OPTIONS");
+    sfText_setCharacterSize(Option, 30);
+    sfText_setOrigin(Option, vector2f(sfText_getGlobalBounds(Option).width / 2.0f, sfText_getGlobalBounds(Option).height / 2.0f));
+    sfText_setPosition(Option, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + sfRectangleShape_getGlobalBounds(backgroundOpt).width / 2.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + 20.0f));
+
+    returnTxt = sfText_create();
+    sfText_setFont(returnTxt, getDefaultFont());
+    sfText_setColor(returnTxt, sfWhite);
+    sfText_setString(returnTxt, "RETOUR");
+    sfText_setCharacterSize(returnTxt, 20);
+    sfText_setOrigin(returnTxt, vector2f(sfText_getGlobalBounds(returnTxt).width / 2.0f, sfText_getGlobalBounds(returnTxt).height / 2.0f));
+    sfText_setPosition(returnTxt, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + sfRectangleShape_getGlobalBounds(backgroundOpt).width / 2.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + sfRectangleShape_getGlobalBounds(backgroundOpt).height - 40.0f));
+
+    Fullscreen = sfText_create();
+    sfText_setFont(Fullscreen, getDefaultFont());
+    sfText_setColor(Fullscreen, sfWhite);
+    sfText_setString(Fullscreen, "FullScreen : ");
+    sfText_setCharacterSize(Fullscreen, 20);
+    sfText_setPosition(Fullscreen, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + 20.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + 80.0f));
+
+    SfxSoundTxt = sfText_create();
+    sfText_setFont(SfxSoundTxt, getDefaultFont());
+    sfText_setColor(SfxSoundTxt, sfWhite);
+    sfText_setString(SfxSoundTxt, "Sfx Volume : ");
+    sfText_setCharacterSize(SfxSoundTxt, 20);
+    sfText_setPosition(SfxSoundTxt, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + 20.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + 140.0f));
+
+    MusicSoundTxt = sfText_create();
+    sfText_setFont(MusicSoundTxt, getDefaultFont());
+    sfText_setColor(MusicSoundTxt, sfWhite);
+    sfText_setString(MusicSoundTxt, "Music Volume : ");
+    sfText_setCharacterSize(MusicSoundTxt, 20);
+    sfText_setPosition(MusicSoundTxt, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + 20.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + 200.0f));
+
+    sfxVolumeBar = sfRectangleShape_create();
+    sfRectangleShape_setSize(sfxVolumeBar, vector2f(SFXVolume, 20.0f));
+    sfRectangleShape_setFillColor(sfxVolumeBar, sfWhite);
+    sfRectangleShape_setPosition(sfxVolumeBar, vector2f(sfText_getGlobalBounds(SfxSoundTxt).left + sfText_getGlobalBounds(SfxSoundTxt).width + 10.0f, sfText_getGlobalBounds(SfxSoundTxt).top));
+
+    MusicVolumeBar = sfRectangleShape_create();
+    sfRectangleShape_setSize(MusicVolumeBar, vector2f(musicVolume, 20.0f));
+    sfRectangleShape_setFillColor(MusicVolumeBar, sfWhite);
+    sfRectangleShape_setPosition(MusicVolumeBar, vector2f(sfText_getGlobalBounds(MusicSoundTxt).left + sfText_getGlobalBounds(MusicSoundTxt).width + 10.0f, sfText_getGlobalBounds(MusicSoundTxt).top));
+
+    fullscreenTick = sfRectangleShape_create();
+    sfRectangleShape_setSize(fullscreenTick, vector2f(20.0f, 20.0f));
+    if (IsFullscreen(_window))
+        sfRectangleShape_setFillColor(fullscreenTick, sfWhite);
+    else
+        sfRectangleShape_setFillColor(fullscreenTick, sfBlack);
+    sfRectangleShape_setOutlineColor(fullscreenTick, sfWhite);
+    sfRectangleShape_setOutlineThickness(fullscreenTick, 2.0f);
+    sfRectangleShape_setPosition(fullscreenTick, vector2f(sfText_getGlobalBounds(Fullscreen).left + sfText_getGlobalBounds(Fullscreen).width + 10.0f, sfText_getGlobalBounds(Fullscreen).top));
+
+    optionSelect = 0;
+
+}
+
+void updateOptions(Window* _window)
+{
+    static float timer = 0.0f;
+    timer += getDeltaTime();
+	sfBool isFullscreen = sfFalse;
+
+    for (int i = 0; i < 8; i++)
+    {
+        if (Gamepad_isButtonPressed(i, CROIX) && timer > 0.2f)
+        {
+        
+            if (!isFullscreen) {
+                if (optionSelect == 0)
+                {
+                    ToggleFullscreen(_window);
+                    isFullscreen = sfTrue;
+                                     }
+
+                if (optionSelect == 3)
+                {
+                    toggleOptions();
+                }
+                timer = 0.0f;
+            }
+            else {
+                if (optionSelect == 0 )
+                {
+                    ToggleFullscreen(_window);
+                    isFullscreen = sfFalse;
+                }
+                if (optionSelect == 3)
+                {
+                    toggleOptions();
+                }
+                timer = 0.0f;
+            }
+           
+           
+        }
+        if (Gamepad_isJoystickMoved(i, CROSSY) > 0 && timer > 0.2f)
+        {
+            optionSelect--;
+            if (optionSelect < 0)
+                optionSelect = 3;
+          
+            timer = 0.0f;
+        }
+        if (Gamepad_isJoystickMoved(i, CROSSY) < 0 && timer > 0.2f)
+        {
+            optionSelect++;
+            if (optionSelect > 3)
+                optionSelect = 0;
+           
+            timer = 0.0f;
+        }
+        if (Gamepad_isJoystickMoved(i, STICKLY) < 0 && timer > 0.5f)
+        {
+            optionSelect--;
+            if (optionSelect < 0)
+                optionSelect = 3;
+          
+            timer = 0.0f;
+        }
+        if (Gamepad_isJoystickMoved(i, STICKLY) > 0 && timer > 0.5f)
+        {
+            optionSelect++;
+            if (optionSelect > 3)
+                optionSelect = 0;
+         
+            timer = 0.0f;
+        }
+        if (Gamepad_isButtonPressed(i, STICKLY) && timer > 0.1f)
+        {
+            if (optionSelect == 1)
+            {
+                if (SFXVolume < 100)
+                    SFXVolume++;
+                setSFXVolume(SFXVolume, NULL);
+            }
+            else if (optionSelect == 2)
+            {
+                if (musicVolume < 100)
+                    musicVolume++;
+                setMusicVolume(musicVolume, NULL);
+            }
+            timer = 0.0f;
+        }
+        if (Gamepad_isButtonPressed(i, STICKLY) && timer > 0.1f)
+        {
+            if (optionSelect == 1)
+            {
+                if (SFXVolume > 0)
+                    SFXVolume--;
+                setSFXVolume(SFXVolume, NULL);
+            }
+            else if (optionSelect == 2)
+            {
+                if (musicVolume > 0)
+                    musicVolume--;
+                setMusicVolume(musicVolume, NULL);
+            }
+            timer = 0.0f;
+        }
+    }
+
+    if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue && timer > 0.2f)
+    {
+        toggleOptions();
+        timer = 0.0f;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyDown) == sfTrue && timer > 0.2f)
+    {
+        optionSelect++;
+        if (optionSelect > 3)
+            optionSelect = 0;
+    
+        timer = 0.0f;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyUp) == sfTrue && timer > 0.2f)
+    {
+        optionSelect--;
+        if (optionSelect < 0)
+            optionSelect = 3;
+       
+        timer = 0.0f;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyEnter) == sfTrue && timer > 0.2f)
+    {
+        if (optionSelect == 0)
+        {
+            ToggleFullscreen(_window);
+        }
+        if (optionSelect == 3)
+        {
+            toggleOptions();
+        }
+        timer = 0.0f;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyRight) == sfTrue && timer > 0.1f)
+    {
+        if (optionSelect == 1)
+        {
+            if (SFXVolume < 100)
+                SFXVolume++;
+            setSFXVolume(SFXVolume, NULL);
+        }
+        else if (optionSelect == 2)
+        {
+            if (musicVolume < 100)
+                musicVolume++;
+            setMusicVolume(musicVolume, NULL);
+        }
+        timer = 0.0f;
+    }
+    if (sfKeyboard_isKeyPressed(sfKeyLeft) == sfTrue && timer > 0.1f)
+    {
+        if (optionSelect == 1)
+        {
+            if (SFXVolume > 0)
+                SFXVolume--;
+            setSFXVolume(SFXVolume, NULL);
+        }
+        else if (optionSelect == 2)
+        {
+            if (musicVolume > 0)
+                musicVolume--;
+            setMusicVolume(musicVolume, NULL);
+        }
+        timer = 0.0f;
+    }
+
+    if (optionSelect == 0)
+    {
+        sfText_setColor(Fullscreen, sfRed);
+        sfText_setColor(SfxSoundTxt, sfWhite);
+        sfText_setColor(MusicSoundTxt, sfWhite);
+        sfText_setColor(returnTxt, sfWhite);
+    }
+    else if (optionSelect == 1)
+    {
+        sfText_setColor(Fullscreen, sfWhite);
+        sfText_setColor(SfxSoundTxt, sfRed);
+        sfText_setColor(MusicSoundTxt, sfWhite);
+        sfText_setColor(returnTxt, sfWhite);
+    }
+    else if (optionSelect == 2)
+    {
+        sfText_setColor(Fullscreen, sfWhite);
+        sfText_setColor(SfxSoundTxt, sfWhite);
+        sfText_setColor(MusicSoundTxt, sfRed);
+        sfText_setColor(returnTxt, sfWhite);
+    }
+    else if (optionSelect == 3)
+    {
+        sfText_setColor(Fullscreen, sfWhite);
+        sfText_setColor(SfxSoundTxt, sfWhite);
+        sfText_setColor(MusicSoundTxt, sfWhite);
+        sfText_setColor(returnTxt, sfRed);
+    }
+
+    sfText_setPosition(Option, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + sfRectangleShape_getGlobalBounds(backgroundOpt).width / 2.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + 20.0f));
+    sfText_setPosition(Fullscreen, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + 20.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + 80.0f));
+    sfText_setPosition(SfxSoundTxt, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + 20.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + 140.0f));
+    sfText_setPosition(MusicSoundTxt, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + 20.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + 200.0f));
+    sfText_setPosition(returnTxt, vector2f(sfRectangleShape_getGlobalBounds(backgroundOpt).left + sfRectangleShape_getGlobalBounds(backgroundOpt).width / 2.0f, sfRectangleShape_getGlobalBounds(backgroundOpt).top + sfRectangleShape_getGlobalBounds(backgroundOpt).height - 40.0f));
+
+    sfRectangleShape_setSize(sfxVolumeBar, vector2f(SFXVolume, 20.0f));
+    sfRectangleShape_setSize(MusicVolumeBar, vector2f(musicVolume, 20.0f));
+    sfRectangleShape_setPosition(backgroundOpt, mainView->PosView);
+    sfRectangleShape_setPosition(fullscreenTick, vector2f(sfText_getGlobalBounds(Fullscreen).left + sfText_getGlobalBounds(Fullscreen).width + 10.0f, sfText_getGlobalBounds(Fullscreen).top));
+    sfRectangleShape_setPosition(MusicVolumeBar, vector2f(sfText_getGlobalBounds(MusicSoundTxt).left + sfText_getGlobalBounds(MusicSoundTxt).width + 10.0f, sfText_getGlobalBounds(MusicSoundTxt).top));
+    sfRectangleShape_setPosition(sfxVolumeBar, vector2f(sfText_getGlobalBounds(SfxSoundTxt).left + sfText_getGlobalBounds(SfxSoundTxt).width + 10.0f, sfText_getGlobalBounds(SfxSoundTxt).top));
+
+    if (IsFullscreen(_window))
+        sfRectangleShape_setFillColor(fullscreenTick, sfWhite);
+    else
+        sfRectangleShape_setFillColor(fullscreenTick, sfBlack);
+}
+
+void displayOptions(Window* _window)
+{
+    sfRenderWindow_drawRectangleShape(_window->renderWindow, backgroundOpt, NULL);
+    sfRenderWindow_drawRectangleShape(_window->renderWindow, fullscreenTick, NULL);
+    sfRenderWindow_drawRectangleShape(_window->renderWindow, sfxVolumeBar, NULL);
+    sfRenderWindow_drawRectangleShape(_window->renderWindow, MusicVolumeBar, NULL);
+    sfRenderWindow_drawText(_window->renderWindow, Option, NULL);
+    sfRenderWindow_drawText(_window->renderWindow, Fullscreen, NULL);
+    sfRenderWindow_drawText(_window->renderWindow, SfxSoundTxt, NULL);
+    sfRenderWindow_drawText(_window->renderWindow, MusicSoundTxt, NULL);
+    sfRenderWindow_drawText(_window->renderWindow, returnTxt, NULL);
+}
+
+void deinitOptions()
+{
+    sfRectangleShape_destroy(backgroundOpt);
+    sfRectangleShape_destroy(fullscreenTick);
+    sfRectangleShape_destroy(sfxVolumeBar);
+    sfRectangleShape_destroy(MusicVolumeBar);
+    sfText_destroy(Option);
+    sfText_destroy(Fullscreen);
+    sfText_destroy(SfxSoundTxt);
+    sfText_destroy(MusicSoundTxt);
+    sfText_destroy(returnTxt);
+
+  
+}
+
+stateManager.h:
+#pragma once
+#include "tools.h"
+#include "windowManager.h"
+
+
+typedef enum 
+{
+	RTNULL = -1, 
+	ALL,
+	INTRO,
+	MENU,
+	GAME,
+	EDITOR,
+	END
+}State;
+
+
+typedef struct 
+{
+	sfBool state;
+	sfMutex* mutex;
+}watcher;
+
+watcher w;
+
+static State state = MENU;
+
+static sfBool onePass = sfFalse;
+static sfBool isPaused = sfFalse;
+static sfBool isOption = sfFalse;
+
+sfThread* loadingThread;
+sfSprite* spLoading;
+
+void stateInit(Window* _window);
+void stateEventUpdate(Window* _window, sfEvent* _event);
+void stateUpdate(Window* _window);
+void stateDisplay(Window* _window);
+void stateDeinit(Window* _window);
+void changeState(Window* _window, State _state);
+void togglePause();
+void toggleOptions();
+
