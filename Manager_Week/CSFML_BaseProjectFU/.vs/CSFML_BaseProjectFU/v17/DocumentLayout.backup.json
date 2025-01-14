@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\particulesManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\particulesManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\particulesManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\particulesManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\game.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\game.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\soundManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\soundManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\stateManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -15,20 +27,8 @@
       "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\ressourcesManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\particulesManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\particulesManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\particulesManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\particulesManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\ressourcesManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\ressourcesManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\soundManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|solutionrelative:CSFML_BaseProjectFU\\soundManager.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F33AB6F7-DEDC-4A98-81C9-649F12A69412}|CSFML_BaseProjectFU\\CSFML_BaseProjectFU.vcxproj|C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\soundManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -90,11 +90,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "stateManager.c",
               "DocumentMoniker": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\stateManager.c",
               "RelativeDocumentMoniker": "CSFML_BaseProjectFU\\stateManager.c",
@@ -102,64 +106,63 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\stateManager.c",
               "ViewState": "AgIAAB4AAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-01-07T08:28:31.708Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T08:28:31.708Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "game.c",
               "DocumentMoniker": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\game.c",
               "RelativeDocumentMoniker": "CSFML_BaseProjectFU\\game.c",
               "ToolTip": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\game.c",
               "RelativeToolTip": "CSFML_BaseProjectFU\\game.c",
-              "ViewState": "AgIAAIcAAAAAAAAAAAAAAE0AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEwAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-01-07T10:32:12.032Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "particulesManager.c",
               "DocumentMoniker": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\particulesManager.c",
               "RelativeDocumentMoniker": "CSFML_BaseProjectFU\\particulesManager.c",
               "ToolTip": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\particulesManager.c",
               "RelativeToolTip": "CSFML_BaseProjectFU\\particulesManager.c",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAkwEcAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABYAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-01-13T11:18:54.884Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "soundManager.c",
               "DocumentMoniker": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\soundManager.c",
               "RelativeDocumentMoniker": "CSFML_BaseProjectFU\\soundManager.c",
               "ToolTip": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\soundManager.c",
               "RelativeToolTip": "CSFML_BaseProjectFU\\soundManager.c",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-01-07T08:56:49.916Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "particulesManager.h",
               "DocumentMoniker": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\particulesManager.h",
               "RelativeDocumentMoniker": "CSFML_BaseProjectFU\\particulesManager.h",
               "ToolTip": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\particulesManager.h",
               "RelativeToolTip": "CSFML_BaseProjectFU\\particulesManager.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-01-13T11:19:18.269Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "ressourcesManager.c",
               "DocumentMoniker": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\ressourcesManager.c",
               "RelativeDocumentMoniker": "CSFML_BaseProjectFU\\ressourcesManager.c",
@@ -167,12 +170,11 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\ressourcesManager.c",
               "ViewState": "AgIAADkAAAAAAAAAAAAAAFYAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-01-09T15:34:15.092Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-09T15:34:15.092Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ressourcesManager.h",
               "DocumentMoniker": "C:\\Users\\nzeut\\Documents\\ParticuleAfaire\\Manager_Week\\CSFML_BaseProjectFU\\CSFML_BaseProjectFU\\ressourcesManager.h",
               "RelativeDocumentMoniker": "CSFML_BaseProjectFU\\ressourcesManager.h",
@@ -180,8 +182,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\ressourcesManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T11:03:28.611Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T11:03:28.611Z"
             },
             {
               "$type": "Document",
@@ -193,12 +194,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\soundManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T09:01:39.384Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2025-01-07T09:01:39.384Z"
             },
             {
               "$type": "Document",
@@ -210,8 +206,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\tools.c",
               "ViewState": "AgIAANUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-01-09T15:23:25.742Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-09T15:23:25.742Z"
             },
             {
               "$type": "Document",
@@ -223,8 +218,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\windowManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-09T15:23:44.639Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-09T15:23:44.639Z"
             },
             {
               "$type": "Document",
@@ -236,8 +230,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\tools.h",
               "ViewState": "AgIAAAkAAAAAAAAAAAAYwBEAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T11:04:06.98Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T11:04:06.98Z"
             },
             {
               "$type": "Document",
@@ -249,8 +242,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\stateManager.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-09T15:23:39.724Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-09T15:23:39.724Z"
             },
             {
               "$type": "Document",
@@ -286,8 +278,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\textureManager.h",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAYAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T09:02:45.061Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T09:02:45.061Z"
             },
             {
               "$type": "Document",
@@ -311,8 +302,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\menu.c",
               "ViewState": "AgIAAM8AAAAAAAAAAAAnwO0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-01-07T14:21:46.563Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T14:21:46.563Z"
             },
             {
               "$type": "Document",
@@ -336,8 +326,7 @@
               "RelativeToolTip": "CSFML_BaseProjectFU\\textureManager.c",
               "ViewState": "AgIAAC0AAAAAAAAAAAAAAAIAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-01-07T08:58:53.367Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-07T08:58:53.367Z"
             },
             {
               "$type": "Document",

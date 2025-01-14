@@ -8,9 +8,12 @@ struct Particle {
     char name[30];            // Nom unique de la particule
     ressourceType type;       // type de ressource (SINGLE, SPRITESHEET, etc.)
     State state;
-    sfVertexArray* vertices;  //   sommets pour les particules
-    sfTexture* texture;       // texture associée aux particules
-    float lifetime;           // durée de vie des particules
+    sfSprite* sprite;          // Sprite de la particule
+    sfTexture* texture;        // Texture associée
+	sfVector2f position;       // Position de la particule
+	sfVector2f velocity;       // Vitesse de la particule
+	float lifetime;            // Durée de vie de la particule
+	float maxLifetime;         // Durée de vie maximale de la particule
 };
 
 Particle* particleBegin;       // debut liste des particules

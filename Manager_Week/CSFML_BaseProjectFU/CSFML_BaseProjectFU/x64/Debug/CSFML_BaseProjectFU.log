@@ -1,4 +1,4 @@
-﻿  game.c
-  particulesManager.c
+﻿  particulesManager.c
+  stateManager.c
   Generating Code...
   CSFML_BaseProjectFU.vcxproj -> C:\Users\nzeut\Documents\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\build\Debug-x64\CSFML_BaseProjectFU.exe

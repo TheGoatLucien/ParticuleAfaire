@@ -25,9 +25,16 @@ void Particle_Onload(State _state) {
 					tempRessources = tempRessources->pNext;
 					continue;
 				}
-				// initialiser le tableau de sommets
-				tempParticle->vertices = sfVertexArray_create();
-				sfVertexArray_setPrimitiveType(tempParticle->vertices, sfPoints);
+                //cree le sprute
+                tempParticle->sprite = sfSprite_create();
+                sfSprite_setTexture(tempParticle->sprite, tempParticle->texture, sfTrue);
+
+                // Initialiser les propriétés par défaut
+                tempParticle->position = (sfVector2f){ 0.0f, 0.0f };
+                tempParticle->velocity = (sfVector2f){ 0.0f, 0.0f };
+                tempParticle->lifetime = 0.0f;
+                tempParticle->maxLifetime = 5.0f;
+
 				// ajouter la particule à la liste
 				AddParticle(tempParticle);
 				
@@ -47,7 +54,6 @@ Particle* GetParticle(char* _name) {
             return tempParticle;
         }
         tempParticle = tempParticle->pNext;
-        
     }
     return NULL;
 }
@@ -63,7 +69,7 @@ Particle* RemoveParticle(Particle* _particle) {
     if (_particle == particleBegin) {
         Particle* next = _particle->pNext;
         sfTexture_destroy(_particle->texture);
-        sfVertexArray_destroy(_particle->vertices);
+        sfSprite_destroy(_particle->sprite);
         free(_particle);
         particleBegin = next;
         return next;
@@ -75,7 +81,7 @@ Particle* RemoveParticle(Particle* _particle) {
         }
         current->pNext = _particle->pNext;
         sfTexture_destroy(_particle->texture);
-        sfVertexArray_destroy(_particle->vertices);
+        sfSprite_destroy(_particle->sprite);
         free(_particle);
         return current->pNext;
     }

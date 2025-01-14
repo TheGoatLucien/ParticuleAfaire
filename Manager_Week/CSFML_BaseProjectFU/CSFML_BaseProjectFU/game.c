@@ -74,19 +74,30 @@ void updateGame(Window* _window)
     //joue la music
 
     timer += getDeltaTime();
+    Particle* current = particleBegin;
+    while (current != NULL) {
+        // Mettre à jour la position en fonction de la vélocité
+        current->position.x += current->velocity.x * getDeltaTime();
+        current->position.y += current->velocity.y * getDeltaTime();
+        sfSprite_setPosition(current->sprite, current->position);
+
+        // Réduire la durée de vie
+        current->lifetime += getDeltaTime();
+        if (current->lifetime >= current->maxLifetime) {
+            current = RemoveParticle(current); // Supprimer la particule expirée
+        }
+        else {
+            current = current->pNext;
+        }
+    }
 
     // oncréer des particules d'explosion
     if (sfKeyboard_isKeyPressed(sfKeySpace)) {
         Particle* explosionParticles = GetParticle("explosion_particles");
-	
         if (explosionParticles) {
-            // on ajoute une particule au système
-            sfVertex vertex;
-            vertex.position = vector2f(500.0f, 500.0f); // la Pos de l'explosion
-            vertex.color = sfColor_fromRGBA(255, 100, 0, 255); // laCouleur de l'explosion
-			vec2f_lerp(vertex.position, vector2f(500.0f + rand_int(-50, 50), 500.0f + rand_int(-50, 50)), 0.5f);
-			
-            sfVertexArray_append(explosionParticles->vertices, vertex);
+            explosionParticles->position = (sfVector2f){ 500.0f, 500.0f };
+            explosionParticles->velocity = (sfVector2f){ 0.0f, -100.0f }; // Mouvement vers le haut
+            explosionParticles->lifetime = 0.0f; // Réinitialiser la durée de vie
         }
     }
     for (int i = 0; i < 8; i++)
@@ -128,12 +139,12 @@ void displayGame(Window* _window)
     sfRenderWindow_drawSprite(_window->renderWindow, spBG1, NULL);
     sfRenderWindow_drawSprite(_window->renderWindow, spBG2, NULL);
 	//afficher les parti
-    // particules d'explosion
 
-    Particle* explosionParticles = GetParticle("explosion_particles");
-    if (explosionParticles) {
-        sfRenderStates states = { sfBlendAdd, sfTransform_Identity, explosionParticles->texture, NULL };
-        sfRenderWindow_drawVertexArray(_window->renderWindow, explosionParticles->vertices, &states);
+     // affichage des particules
+    Particle* current = particleBegin;
+    while (current != NULL) {
+        sfRenderWindow_drawSprite(_window->renderWindow, current->sprite, NULL);
+        current = current->pNext;
     }
 }
 
