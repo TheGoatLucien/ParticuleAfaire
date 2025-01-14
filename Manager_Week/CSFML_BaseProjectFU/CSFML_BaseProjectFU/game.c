@@ -5,6 +5,7 @@
 #include "soundManager.h"
 #include "Gamepad.h"
 #include "pause.h"
+#include "particulesManager.h"
 
 #include <Windows.h>
 
@@ -37,6 +38,7 @@ void initGame(Window* _window)
 {
     Texture_Onload(GAME);
     Sound_Onload(GAME); // Charger les sons pour le jeu
+    Particle_Onload(GAME); // Charger les particules pour le jeu
     // Jouer la musique de fond
     sfMusic* gameMusic = GetMusic("game_theme");
     if (gameMusic) {
@@ -73,6 +75,20 @@ void updateGame(Window* _window)
 
     timer += getDeltaTime();
 
+    // oncréer des particules d'explosion
+    if (sfKeyboard_isKeyPressed(sfKeySpace)) {
+        Particle* explosionParticles = GetParticle("explosion_particles");
+	
+        if (explosionParticles) {
+            // on ajoute une particule au système
+            sfVertex vertex;
+            vertex.position = vector2f(500.0f, 500.0f); // la Pos de l'explosion
+            vertex.color = sfColor_fromRGBA(255, 100, 0, 255); // laCouleur de l'explosion
+			vec2f_lerp(vertex.position, vector2f(500.0f + rand_int(-50, 50), 500.0f + rand_int(-50, 50)), 0.5f);
+			
+            sfVertexArray_append(explosionParticles->vertices, vertex);
+        }
+    }
     for (int i = 0; i < 8; i++)
     {
         if (Gamepad_isButtonPressed(i, OPTION) && timer > 0.2f)
@@ -111,6 +127,14 @@ void displayGame(Window* _window)
 {
     sfRenderWindow_drawSprite(_window->renderWindow, spBG1, NULL);
     sfRenderWindow_drawSprite(_window->renderWindow, spBG2, NULL);
+	//afficher les parti
+    // particules d'explosion
+
+    Particle* explosionParticles = GetParticle("explosion_particles");
+    if (explosionParticles) {
+        sfRenderStates states = { sfBlendAdd, sfTransform_Identity, explosionParticles->texture, NULL };
+        sfRenderWindow_drawVertexArray(_window->renderWindow, explosionParticles->vertices, &states);
+    }
 }
 
 void deinitGame()
@@ -120,5 +144,6 @@ void deinitGame()
     sfSprite_destroy(spBG2);
     RemoveAllTextureButALL();
     RemoveAllSoundButALL(); // Libérer les sons du jeu
+    RemoveAllParticleButALL();  // Libérer les particules du jeu
 }
 

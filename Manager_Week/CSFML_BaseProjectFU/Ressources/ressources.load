@@ -20,4 +20,6 @@ animation explosionAnim ../Ressources/Textures/explosion.anim
 music game_theme ../Ressources/Musics/Impossible.ogg
 soundfx menu_navigate ../Ressources/SoundsFX/button_click.ogg
 soundfx menu_select ../Ressources/SoundsFX/button_click.ogg
+particle explosion_particles ../Ressources/Textures/explosion.png
+particle trail_particles ../Ressources/Textures/explosion.png
 [end]

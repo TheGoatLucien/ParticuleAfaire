@@ -10,6 +10,7 @@
 #include "viewManager.h"
 
 
+
 void stateInit(Window* _window)
 {
 	static sfBool firstload = sfFalse;

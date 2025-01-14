@@ -81,6 +81,10 @@ void OnLoad(char* _path)
 			{
 				tempRes->type = VIDEO;
 			}
+			else if ((strcmp(tmp, "particle")) == 0)
+			{
+				tempRes->type = PARTICLE;
+			}
 			strcpy(tempRes->name, tmpname);
 			strcpy(tempRes->path, tmppath);
 

@@ -5,7 +5,7 @@
 
 typedef enum 
 {
-	SINGLE, SPRITESHEET, ANIMATION, SOUNDFX, MUSIC, FONT, VIDEO
+	SINGLE, SPRITESHEET, ANIMATION, SOUNDFX, MUSIC, FONT, VIDEO, PARTICLE
 }ressourceType;
 
 typedef struct ressources ressources;
