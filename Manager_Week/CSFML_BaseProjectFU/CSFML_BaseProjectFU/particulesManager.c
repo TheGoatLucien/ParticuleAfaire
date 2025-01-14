@@ -25,6 +25,10 @@ void Particle_Onload(State _state) {
 					tempRessources = tempRessources->pNext;
 					continue;
 				}
+
+                tempParticle->textureUsageCount = (int*)malloc(sizeof(int));
+                *(tempParticle->textureUsageCount) = 1; // La texture est utilisée par une particule
+
                 //cree le sprute
                 tempParticle->sprite = sfSprite_create();
                 sfSprite_setTexture(tempParticle->sprite, tempParticle->texture, sfTrue);
@@ -33,7 +37,7 @@ void Particle_Onload(State _state) {
                 tempParticle->position = (sfVector2f){ 0.0f, 0.0f };
                 tempParticle->velocity = (sfVector2f){ 0.0f, 0.0f };
                 tempParticle->lifetime = 0.0f;
-                tempParticle->maxLifetime = 5.0f;
+                tempParticle->maxLifetime = 6.0f;
 
 				// ajouter la particule à la liste
 				AddParticle(tempParticle);
@@ -60,32 +64,76 @@ Particle* GetParticle(char* _name) {
 
 // Ajouter une particule à la liste
 void AddParticle(Particle* _particle) {
+    if (_particle == NULL) {
+        printf("Erreur : Impossible d'ajouter une particule NULL.\n");
+        return;
+    }
+    if (_particle->sprite == NULL) {
+        printf("Erreur : Particule avec sprite NULL ajoutée : %s\n", _particle->name);
+        return;
+    }
+    // Incrémenter le compteur d'utilisation si la texture est déjà partagée
+    if (_particle->textureUsageCount) {
+        (*(_particle->textureUsageCount))++;
+    }
     _particle->pNext = particleBegin;
     particleBegin = _particle;
+    printf("Particule ajoutée : %s\n", _particle->name);
 }
+
 
 // Supprimer une particule spécifique
 Particle* RemoveParticle(Particle* _particle) {
+    if (_particle == NULL) return NULL;
+
     if (_particle == particleBegin) {
         Particle* next = _particle->pNext;
-        sfTexture_destroy(_particle->texture);
-        sfSprite_destroy(_particle->sprite);
+
+        // Libérer le sprite
+        if (_particle->sprite) sfSprite_destroy(_particle->sprite);
+
+        // Décrémenter le compteur d'utilisation et libérer la texture si nécessaire
+        if (_particle->textureUsageCount) {
+            (*(_particle->textureUsageCount))--;
+            if (*(_particle->textureUsageCount) == 0) {
+                printf("Libération de la texture de la particule : %s\n", _particle->name);
+                sfTexture_destroy(_particle->texture);
+                free(_particle->textureUsageCount);
+            }
+        }
+
         free(_particle);
         particleBegin = next;
         return next;
     }
     else {
         Particle* current = particleBegin;
-        while (current->pNext != _particle) {
+        while (current && current->pNext != _particle) {
             current = current->pNext;
         }
-        current->pNext = _particle->pNext;
-        sfTexture_destroy(_particle->texture);
-        sfSprite_destroy(_particle->sprite);
-        free(_particle);
-        return current->pNext;
+        if (current && current->pNext == _particle) {
+            current->pNext = _particle->pNext;
+
+            // Libérer le sprite
+            if (_particle->sprite) sfSprite_destroy(_particle->sprite);
+
+            // Décrémenter le compteur d'utilisation et libérer la texture si nécessaire
+            if (_particle->textureUsageCount) {
+                (*(_particle->textureUsageCount))--;
+                if (*(_particle->textureUsageCount) == 0) {
+                    printf("Libération de la texture de la particule : %s\n", _particle->name);
+                    sfTexture_destroy(_particle->texture);
+                    free(_particle->textureUsageCount);
+                }
+            }
+
+            free(_particle);
+        }
+        return current ? current->pNext : NULL;
     }
 }
+
+
 
 // Supprimer toutes les particules
 void RemoveAllParticle() {

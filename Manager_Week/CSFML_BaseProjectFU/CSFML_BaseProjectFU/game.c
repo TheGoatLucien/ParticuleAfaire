@@ -71,17 +71,15 @@ void initGame(Window* _window)
 
 void updateGame(Window* _window)
 {
-    //joue la music
-
     timer += getDeltaTime();
+
+    // Mise à jour des particules
     Particle* current = particleBegin;
     while (current != NULL) {
-        // Mettre à jour la position en fonction de la vélocité
         current->position.x += current->velocity.x * getDeltaTime();
         current->position.y += current->velocity.y * getDeltaTime();
         sfSprite_setPosition(current->sprite, current->position);
 
-        // Réduire la durée de vie
         current->lifetime += getDeltaTime();
         if (current->lifetime >= current->maxLifetime) {
             current = RemoveParticle(current); // Supprimer la particule expirée
@@ -91,15 +89,56 @@ void updateGame(Window* _window)
         }
     }
 
-    // oncréer des particules d'explosion
-    if (sfKeyboard_isKeyPressed(sfKeySpace)) {
-        Particle* explosionParticles = GetParticle("explosion_particles");
-        if (explosionParticles) {
-            explosionParticles->position = (sfVector2f){ 500.0f, 500.0f };
-            explosionParticles->velocity = (sfVector2f){ 0.0f, -100.0f }; // Mouvement vers le haut
-            explosionParticles->lifetime = 0.0f; // Réinitialiser la durée de vie
+    // Génération des particules d'explosion
+    if (sfKeyboard_isKeyPressed(sfKeySpace) == sfTrue) {
+        Particle* explosionParticle = GetParticle("explosion_particles");
+        if (explosionParticle) {
+            printf("Particule d'explosion récupérée avec succès.\n");
+
+            for (int i = 0; i < 20; i++) {
+                Particle* newParticle = (Particle*)calloc(1, sizeof(Particle));
+                if (!newParticle) {
+                    printf("Erreur : Impossible d'allouer de la mémoire pour une nouvelle particule.\n");
+                    continue;
+                }
+
+                // Copier les propriétés de base
+                strcpy(newParticle->name, explosionParticle->name);
+                newParticle->texture = explosionParticle->texture;
+                newParticle->sprite = sfSprite_create();
+                if (newParticle->sprite == NULL) {
+                    printf("Erreur : Impossible de créer un sprite pour la nouvelle particule.\n");
+                    free(newParticle);
+                    continue;
+                }
+                sfSprite_setTexture(newParticle->sprite, newParticle->texture, sfTrue);
+
+                // Position initiale
+                newParticle->position = (sfVector2f){ 950.0f, 500.0f };
+
+                // Vitesse aléatoire
+                float angle = ((float)rand() / RAND_MAX) * 360.0f; // Angle en degrés
+                float speed = 100.0f + ((float)rand() / RAND_MAX) * 100.0f; // Vitesse
+                newParticle->velocity = (sfVector2f){
+                    cos(angle * (3.14159f / 180.0f)) * speed,
+                    sin(angle * (3.14159f / 180.0f)) * speed
+                };
+
+                // Durée de vie
+                newParticle->lifetime = 0.0f;
+                newParticle->maxLifetime = 1.0f + ((float)rand() / RAND_MAX) * 1.0f;
+
+                // Ajouter à la liste
+                AddParticle(newParticle);
+                printf("Nouvelle particule créée avec position (%f, %f)\n", newParticle->position.x, newParticle->position.y);
+            }
+
+        }
+        else {
+            printf("Erreur : La particule 'explosion_particles' n'a pas pu être récupérée.\n");
         }
     }
+
     for (int i = 0; i < 8; i++)
     {
         if (Gamepad_isButtonPressed(i, OPTION) && timer > 0.2f)

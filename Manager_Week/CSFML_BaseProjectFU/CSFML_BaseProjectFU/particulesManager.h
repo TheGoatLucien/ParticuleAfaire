@@ -14,6 +14,7 @@ struct Particle {
 	sfVector2f velocity;       // Vitesse de la particule
 	float lifetime;            // Durée de vie de la particule
 	float maxLifetime;         // Durée de vie maximale de la particule
+    int* textureUsageCount;
 };
 
 Particle* particleBegin;       // debut liste des particules

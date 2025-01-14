@@ -1,4 +1,4 @@
-﻿  particulesManager.c
-  stateManager.c
-  Generating Code...
+﻿  game.c
+C:\Users\nzeut\Documents\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\game.c(123,54): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\nzeut\Documents\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\game.c(124,54): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   CSFML_BaseProjectFU.vcxproj -> C:\Users\nzeut\Documents\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\build\Debug-x64\CSFML_BaseProjectFU.exe
