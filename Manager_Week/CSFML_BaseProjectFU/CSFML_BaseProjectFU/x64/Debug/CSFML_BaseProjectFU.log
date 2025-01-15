@@ -1,4 +1,41 @@
-﻿  game.c
-C:\Users\nzeut\Documents\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\game.c(123,54): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\nzeut\Documents\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\game.c(124,54): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  CSFML_BaseProjectFU.vcxproj -> C:\Users\nzeut\Documents\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\build\Debug-x64\CSFML_BaseProjectFU.exe
+﻿  dialogBox.c
+  game.c
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(183,76): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(183,82): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(183,88): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(183,94): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(185,51): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(185,58): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(185,65): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(185,72): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(190,77): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(190,84): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(190,91): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(190,98): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(192,52): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(192,59): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(192,66): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\dialogBox.c(192,73): warning C4244: 'fonction' : conversion de 'double' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\game.c(123,54): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\game.c(124,54): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+  gamepad.c
+  gamepadx.c
+  main.c
+  menu.c
+  options.c
+  particulesManager.c
+  pause.c
+  ressourcesManager.c
+  soundManager.c
+  stateManager.c
+  textureManager.c
+  tools.c
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\tools.c(11,8): warning C4244: 'fonction' : conversion de 'time_t' en 'unsigned int', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\tools.c(95,25): warning C4244: '=' : conversion de 'float' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\tools.c(96,25): warning C4244: '=' : conversion de 'float' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\tools.c(97,25): warning C4244: '=' : conversion de 'float' en 'sfUint8', perte possible de données
+C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\CSFML_BaseProjectFU\tools.c(98,25): warning C4244: '=' : conversion de 'float' en 'sfUint8', perte possible de données
+  viewManager.c
+  windowManager.c
+  Génération de code en cours...
+  CSFML_BaseProjectFU.vcxproj -> C:\Users\l.nzeutom\OneDrive\Tiedostot\GitHub\CSFML_RPG\ParticuleAfaire\Manager_Week\CSFML_BaseProjectFU\build\Debug-x64\CSFML_BaseProjectFU.exe
